@@ -65,14 +65,14 @@
             @click="saveNavState('borrowstatement')"
           >
             <i class="el-icon-folder-checked"></i>
-            <span slot="title">借书报表</span>
+            <span slot="title">历史记录</span>
           </el-menu-item>
           <el-menu-item
             index="returnstatement"
             @click="saveNavState('returnstatement')"
           >
             <i class="el-icon-folder-checked"></i>
-            <span slot="title">还书报表</span>
+            <span slot="title">待还书</span>
           </el-menu-item>
           <el-menu-item
             index="noticemanage"

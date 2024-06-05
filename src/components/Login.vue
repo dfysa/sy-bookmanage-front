@@ -41,7 +41,7 @@
     <div class="footer2">
 
       <el-popover placement="top-start" :width="150" trigger="hover">
-        <p slot="reference"> 联系作者|   ©2022-2023 By 小白条<br /> </p>
+        <!-- <p slot="reference"> 联系作者|   ©2022-2023 By 小白条<br /> </p> -->
         <img
             src="https://pic.yupi.icu/5563/202312061315664.png"
             style="height: 100px; width: 100px"
@@ -65,8 +65,8 @@ export default {
     return {
       //登录表单
       loginForm: {
-        username: "相思断红肠",
-        password: "123456",
+        username: "",
+        password: "",
       },
 
       //登录表单规则的验证对象
@@ -153,9 +153,10 @@ export default {
 
 .login_container {
   // background-color: #2b4b6b;
-  background: url(https://xxx.xiaobaitiao.icu/img/icu/202312211236280.jpg) no-repeat 0px 0px;
+ // background: url(https://xxx.xiaobaitiao.icu/img/icu/202312211236280.jpg) no-repeat 0px 0px;
+  background: url('../../src/assets/images/bg-cover.png') no-repeat 0px 0px;
   background-size: cover;
-  height: 100%;
+
 }
 
 .login_box {

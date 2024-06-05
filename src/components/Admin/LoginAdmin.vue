@@ -173,7 +173,7 @@ export default {
 
 .login_container {
   // background-color: #2b4b6b;
-  background: url(https://xxx.xiaobaitiao.icu/img/icu/202312211236280.jpg) no-repeat 0px 0px;
+   background: url('../../assets/images/bg-cover.png') no-repeat 0px 0px;
   background-size: cover;
   height: 100%;
 }
