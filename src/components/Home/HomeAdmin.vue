@@ -88,6 +88,13 @@
             <i class="el-icon-user-solid"></i>
             <span slot="title">图书管理员管理</span>
           </el-menu-item>
+             <el-menu-item
+            index="bookusermanage"
+            @click="saveNavState('bookusermanage')"
+          >
+            <i class="el-icon-user-solid"></i>
+            <span slot="title">读者管理</span>
+          </el-menu-item>
           <el-menu-item
             index="adminmanage"
             @click="saveNavState('adminmanage')"
@@ -95,13 +102,13 @@
             <i class="el-icon-s-tools"></i>
             <span slot="title">系统管理</span>
           </el-menu-item>
-          <el-menu-item
+          <!-- <el-menu-item
               index="intelligent_analysis"
               @click="saveNavState('intelligent_analysis')"
           >
             <i class="el-icon-data-line"></i>
             <span slot="title">智能分析</span>
-          </el-menu-item>
+          </el-menu-item> -->
         </el-menu>
       </el-aside>
       <!-- 右侧内容主体 -->
@@ -110,7 +117,7 @@
         <router-view></router-view>
         <div class="footer">
           <el-popover placement="top-start" :width="150" trigger="hover">
-            <p slot="reference"> 联系作者|   ©2022-2023 By 小白条<br /> </p>
+     
             <img
                 src="https://pic.yupi.icu/5563/202312061315664.png"
                 style="height: 100px; width: 100px"

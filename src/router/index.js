@@ -118,6 +118,10 @@ const routes = [
         component: () => import("@/components/Admin/BookAdminManage.vue"),
       },
       {
+        path: "/bookusermanage",
+        component: () => import("@/components/Admin/BookUserManage.vue"),
+      },
+      {
         path: "/adminmanage",
         component: () => import("@/components/Admin/AdminManage.vue"),
       },

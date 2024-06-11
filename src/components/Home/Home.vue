@@ -74,10 +74,10 @@
             <i class="iconfont icon-liuyan"></i>
             <span slot="title">读者留言</span>
           </el-menu-item>
-          <el-menu-item index="intelligent" @click="saveNavState('intelligent')">
+          <!-- <el-menu-item index="intelligent" @click="saveNavState('intelligent')">
             <i class="el-icon-monitor"></i>
             <span slot="title">智能推荐</span>
-          </el-menu-item>
+          </el-menu-item> -->
 <!--          <el-menu-item index="chat" @click="saveNavState('chat')">-->
 <!--            <i class="el-icon-monitor"></i>-->
 <!--            <span slot="title">图书反馈</span>-->
@@ -90,7 +90,7 @@
         <router-view></router-view>
         <div class="footer">
           <el-popover placement="top-start" :width="150" trigger="hover">
-            <p slot="reference"> 联系作者|   ©2022-2023 By 小白条<br /> </p>
+ 
             <img
                 src="https://pic.yupi.icu/5563/202312061315664.png"
                 style="height: 100px; width: 100px"

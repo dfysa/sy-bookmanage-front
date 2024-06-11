@@ -73,7 +73,7 @@
     </div>
     <div class="footer2">
       <el-popover placement="top-start" :width="150" trigger="hover">
-        <p slot="reference"> 联系作者|   ©2022-2023 By 小白条<br /> </p>
+         
         <img
             src="https://pic.yupi.icu/5563/202312061315664.png"
             style="height: 100px; width: 100px"

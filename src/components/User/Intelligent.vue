@@ -1,6 +1,6 @@
 <template>
   <div class="chat-container">
-    <h2 style="text-align: center;color:deepskyblue;">AI 智能推荐 by小白条</h2>
+    <h2 style="text-align: center;color:deepskyblue;">AI 智能推荐 </h2>
     <el-card class="chat" style="margin-top:10px;height: 80vh;border-radius: 15px;border-color: #ccc;">
       <el-card class="main_chat">
         <div v-for="item in messages" :key="message.id" class="message">

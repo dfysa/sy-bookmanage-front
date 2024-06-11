@@ -28,6 +28,18 @@
             <i class="iconfont icon-gerenxinxi"></i> 借阅证姓名:
             {{ this.user.cardName }}
           </div>
+           <div class="rule">
+            年龄: {{ user.age }}
+          </div>
+          <div class="rule">
+            性别: {{ user.gender }}
+          </div>
+          <div class="rule">
+            电话: {{ user.tel }}
+          </div>
+          <div class="rule">
+            地址: {{ user.address }}
+          </div>
           <div class="rule">
             <i class="iconfont icon-guizeshezhi"></i> 规则编号:
             {{ this.user.ruleNumber }}
@@ -42,6 +54,9 @@
         <el-button type="primary" class="changePWD" @click="showEditDialog"  v-if="show"
           >修改密码</el-button
         >
+                <el-button type="primary" class="changeInfo" @click="showEditInfoDialog" v-if="show">
+          修改个人信息
+        </el-button>
       </div>
       <el-dialog
         title="修改密码"
@@ -69,6 +84,36 @@
           >
         </span>
       </el-dialog>
+
+       <el-dialog
+        title="修改个人信息"
+        :visible.sync="editInfoDialogVisible"
+        width="50%"
+        @close="editInfoDialogClosed"
+      >
+        <el-form
+          :model="editInfoForm"
+          ref="editInfoFormRef"
+          label-width="120px"
+        >
+          <el-form-item label="年龄">
+            <el-input v-model="editInfoForm.age"></el-input>
+          </el-form-item>
+          <el-form-item label="性别">
+            <el-input v-model="editInfoForm.gender"></el-input>
+          </el-form-item>
+          <el-form-item label="电话">
+            <el-input v-model="editInfoForm.tel"></el-input>
+          </el-form-item>
+          <el-form-item label="地址">
+            <el-input v-model="editInfoForm.address"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="editInfoDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="updateUserInfo">确 定</el-button>
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -77,14 +122,14 @@
 export default {
   data() {
     var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.editForm.password) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.editForm.password) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
     return {
       user: {
         ruleNumber: Number,
@@ -101,73 +146,94 @@ export default {
         password: "",
         confirmPassword: "",
       },
-      editFormRules:{
-        password:[
-          {required:true,message:"请输入新密码",trigger:"blur"},
-          {min:6,max:15,message:"新密码长度在6-15个字符",trigger:"blur"}
+      editFormRules: {
+        password: [
+          { required: true, message: "请输入新密码", trigger: "blur" },
+          { min: 6, max: 15, message: "新密码长度在6-15个字符", trigger: "blur" },
         ],
-        confirmPassword:[
-          {validator:validatePass2,trigger:"blur"}
-        ]
-
-    },
+        confirmPassword: [
+          { validator: validatePass2, trigger: "blur" }
+        ],
+      },
+      editInfoForm: {
+        age: "",
+        gender: "",
+        tel: "",
+        address: "",
+      },
       editDialogVisible: false,
-    show:false,
-    loading:true
+      editInfoDialogVisible: false,
+      show: false,
+      loading: true,
     };
   },
   methods: {
-    //让修改公告的对话框可见,并从数据库中回显数据
     showEditDialog() {
-      // 让修改公告的对话框可见
       this.editDialogVisible = true;
     },
-    //监听修改对话框的关闭，一旦对话框关闭，就重置表单，回显数据
+    showEditInfoDialog() {
+      this.editInfoForm = {
+        age: this.user.age,
+        gender: this.user.gender,
+        tel: this.user.tel,
+        address: this.user.address,
+      };
+      this.editInfoDialogVisible = true;
+    },
     editDialogClosed() {
       this.$refs.editFormRef.resetFields();
     },
+    editInfoDialogClosed() {
+      this.$refs.editInfoFormRef.resetFields();
+    },
     async getUserInformaton() {
-      // 先从sessionStorage中获取用户id
       const userId = window.sessionStorage.getItem("userId");
-      // 发送axios请求，携带用户id，获取个人信息
       this.loading = true;
-      const { data: res } = await this.$http.get(
-        "user/get_information/" + userId
-      );
+      const { data: res } = await this.$http.get("user/get_information/" + userId);
       if (res.status !== 200) {
-
         return this.$message.error(res.msg);
       }
-      this.$message.success({
-        message: res.msg,
-        duration: 1000,
-      });
+      this.$message.success({ message: res.msg, duration: 1000 });
       this.user = res.data;
       this.show = true;
       this.loading = false;
-
     },
-    async changePassword(){
-
-      const {data:res} = await this.$http.post('user/update_password',{
-        password:this.editForm.password,
-        userId:window.sessionStorage.getItem('userId')
-      })
-      if(res.status !== 200){
+    async changePassword() {
+      const { data: res } = await this.$http.post("user/update_password", {
+        password: this.editForm.password,
+        userId: window.sessionStorage.getItem("userId"),
+      });
+      if (res.status !== 200) {
         return this.$message.error(res.msg);
       }
-      this.$message.success(res.msg)
+      this.$message.success(res.msg);
       this.editDialogVisible = false;
       this.$refs.editFormRef.resetFields();
       window.sessionStorage.clear();
       this.$router.push("/login");
-    }
+    },
+    async updateUserInfo() {
+      const { data: res } = await this.$http.post("user/edit", {
+        age: this.editInfoForm.age,
+        gender: this.editInfoForm.gender,
+        tel: this.editInfoForm.tel,
+        address: this.editInfoForm.address,
+        userId: window.sessionStorage.getItem("userId"),
+      });
+      if (res.status !== 200) {
+        return this.$message.error(res.msg);
+      }
+      this.$message.success(res.msg);
+      this.editInfoDialogVisible = false;
+      this.getUserInformaton();
+    },
   },
   created() {
     this.getUserInformaton();
   },
 };
 </script>
+
 
 <style lang="less" scoped>
 .information_container {
@@ -185,7 +251,7 @@ export default {
   }
 }
 .information_header {
-  height: 200px;
+  height: 100px;
   // background-color: pink;
   text-align: center;
   p:nth-child(1) {
@@ -200,7 +266,7 @@ export default {
 }
 .information_banner {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 400px;
   // background-color: pink;
   .information_banner_left {
@@ -211,7 +277,8 @@ export default {
   .information_banner_right {
     flex: 0.5;
     // background-color: skyblue;
-    text-align: left;
+    text-align: center;
+
     line-height: 400px;
   }
 }
@@ -225,7 +292,12 @@ export default {
 }
 .changePWD {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 90%;
+  left: 37%;
+}
+.changeInfo {
+  position: absolute;
+  top: 90%;
+  left: 53%;
 }
 </style>
