@@ -9,7 +9,7 @@
       <!-- 搜索内容和导出区域 -->
       <el-row :gutter="10">
         <el-col :span="6">条件搜索:<el-select v-model="queryInfo.condition" filterable placeholder="请选择"
-            style="margin-left: 15px">
+            style="margin-left: 10px">
             <el-option v-for="item in searchs" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -80,7 +80,7 @@
             <!-- 修改按钮 -->
             <el-tooltip effect="dark" content="修改" placement="top" :enterable="false">
               <el-button type="primary" icon="el-icon-edit" size="mini"
-                @click="showEditDialog(scope.row.bookId)"></el-button></el-tooltip>
+                @click="showEditDialog(scope.row.bookId)" style="margin-left: 10px"></el-button></el-tooltip>
 
             <!-- 删除按钮 -->
             <el-tooltip effect="dark" content="删除" placement="top" :enterable="false">

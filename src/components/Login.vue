@@ -29,33 +29,25 @@
       :particleSize="4" linesColor="#8DD1FE" :linesWidth="1" :lineLinked="true" :lineOpacity="0.4" :linesDistance="150"
       :moveSpeed="3" :hoverEffect="true" hoverMode="grab" :clickEffect="true" clickMode="push">
     </vue-particles>
-    <div class="footer">
+    <div class="footer" style="
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex:auto;
+      height: 150px;">
+
       <span style="font-weight: bold;color:white;margin-bottom: 10px">
         登录页面切换
         <!-- <i class="iconfont icon-haoyou " @click="goUser"></i> -->
+         <i class="iconfont icon-haoyou " @click="goUser"></i> 
       </span>
-      <span>
-        <i class="iconfont icon-guanliyuan" @click="goManage"></i>
-      </span>
-    </div>
-    <div class="footer2">
 
-      <el-popover placement="top-start" :width="150" trigger="hover">
- 
-        <img
-            src="https://pic.yupi.icu/5563/202312061315664.png"
-            style="height: 100px; width: 100px"
-        />
-      </el-popover>
-      <a href="https://beian.miit.gov.cn">备案号:浙ICP备2023044565号-2 | </a>
-      <a href="https://beian.mps.gov.cn/#/query/webSearch">
-        <img
-            src="https://xxx.xiaobaitiao.icu/img/icu/202312211243636.png"
-            style="height: 16px; width: 16px; margin: 5px 0px 0px 5px"
-        />
-        浙公网安备33028202001002号
-      </a>
+      <span style="margin-bottom: 10px ">
+       <i class="iconfont icon-guanliyuan" @click="goManage" style="margin-right: 20px"></i> 
+      </span>33
     </div>
+
   </div>
 </template>
 
@@ -65,8 +57,8 @@ export default {
     return {
       //登录表单
       loginForm: {
-        username: "乌有者",
-        password: "123456",
+        username: "",
+        password: "",
       },
 
       //登录表单规则的验证对象
@@ -156,6 +148,7 @@ export default {
  // background: url(https://xxx.xiaobaitiao.icu/img/icu/202312211236280.jpg) no-repeat 0px 0px;
   background: url('../../src/assets/images/bg-cover.png') no-repeat 0px 0px;
   background-size: cover;
+  height: 100%;
 
 }
 

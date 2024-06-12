@@ -13,7 +13,7 @@
             v-model="queryInfo.condition"
             filterable
             placeholder="请选择"
-            style="margin-left: 15px"
+            style="margin-left: 0px"
           >
             <el-option
               v-for="item in searchs"

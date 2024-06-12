@@ -8,14 +8,14 @@
     <el-card shadow="always">
       <!-- 搜索内容和导出区域 -->
       <el-row>
-        <el-col :span="6"
+        <el-col :span="6" 
           >条件搜索:<el-select
             v-model="queryInfo.condition"
             filterable
             placeholder="请选择"
-            style="margin-left: 15px"
+            style="margin-left: 0px "
           >
-            <el-option
+            <el-option 
               v-for="item in options"
               :key="item.value"
               :label="item.label"
@@ -24,12 +24,13 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :span="4">
+        <el-col :span="6" style="margin-left: 20px">
           <el-input
             placeholder="请输入内容"
             v-model="queryInfo.query"
             class="input-with-select"
             @keyup.enter.native="searchBookBorrowByPage"
+            style="margin-top: 0px"
           >
             <el-button
               slot="append"

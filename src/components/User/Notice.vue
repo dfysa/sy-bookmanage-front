@@ -2,7 +2,7 @@
   <div class="notice_container">
     <div class="header">
       <div class="scroll-text" ref="scrollText">
-        <i class="el-icon-s-opportunity"></i> {{ text }}
+        <i class="el-icon-s-opportunity"></i> {{ text[currentIndex]}}
         <i class="el-icon-s-opportunity"></i>
       </div>
     </div>
@@ -30,7 +30,16 @@
 export default {
   data() {
     return {
-      text: "图书馆公告栏,记得查收公告呀!小项目请勿恶意攻击,谢谢",
+      text: [
+        "世上只有想不通的人，没有走不到的路，只要你肯借我一本书看看。",
+  "每天进步一点点，换来的是一生的快乐，每天阅读一点点，走出的是一片天地。",  
+      "悄悄地读书，说话的不要",
+      "你知道的，本图书馆向来以高人气著称",
+      "书山有路勤为径，学海无涯苦作舟，来呀，快活呀，反正有大把时光。",
+
+
+      ],
+        currentIndex: 0, // 当前显示的文本索引
       noticeList:[
         {
           noticeId:0,
@@ -56,9 +65,13 @@ export default {
         message:res.msg,
         duration:1000
       })
-      this.noticeList = res.data;
+    this.noticeList = res.data.reverse(); // 逆序排列公告列表
       this.loading = false;
-    }
+    },
+     changeText() {
+      this.currentIndex = (this.currentIndex + 1) % this.text.length;
+    },
+    
   },
   mounted() {
     const containerWidth = this.$refs.scrollText.offsetWidth;
@@ -67,7 +80,9 @@ export default {
     // If the text is longer than the container, start the animation
     if (textWidth > containerWidth) {
       this.$refs.scrollText.style.animation = "scroll 10s linear infinite";
-    }
+    };
+     // 每隔一段时间切换一次文本
+    setInterval(this.changeText, 10000); // 5000毫秒为切换间隔，可以根据需求调整
   },
   created(){
     this.getRuleList();

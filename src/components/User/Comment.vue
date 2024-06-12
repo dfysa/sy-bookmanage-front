@@ -2,7 +2,7 @@
   <div class="comment_container">
     <div class="backgroundImg">
       <img
-        src="https://xxx.xiaobaitiao.icu/img/icu/202312211243628.jpg"
+        src="../../assets/images/landScapeAndNightMin.jpg"
         alt=""
       />
     </div>
@@ -52,14 +52,14 @@ export default {
       lanesCount: 1, //固定弹幕(测试不生效)
       boxWidth: 1600, //弹幕宽度
       boxHeight: 200, //弹幕高度(测试不生效)
-      throttleGap: 3000, //消息间隔
+      throttleGap: 1000, //消息间隔
       input: "",
       //弹幕列表，格式为数组
       barrageList: [],
       barrage: {
         id: "",
         avatar:
-          "https://img0.baidu.com/it/u=825023390,3429989944&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+          "../../assets/images/landScapeAndNightMin.jpg",
         msg: "",
         time: "",
         type: MESSAGE_TYPE.NORMAL,

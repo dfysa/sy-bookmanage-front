@@ -54,7 +54,7 @@
         <el-button type="primary" class="changePWD" @click="showEditDialog"  v-if="show"
           >修改密码</el-button
         >
-                <el-button type="primary" class="changeInfo" @click="showEditInfoDialog" v-if="show">
+        <el-button type="primary" class="changeInfo" @click="showEditInfoDialog" v-if="show">
           修改个人信息
         </el-button>
       </div>
@@ -73,7 +73,7 @@
           <el-form-item label="新密码" prop="password">
             <el-input v-model="editForm.password" type="password" placeholder="请输入新密码"></el-input>
           </el-form-item>
-          <el-form-item label="新密码" prop="confirmPassword">
+          <el-form-item label="确认密码" prop="confirmPassword">
             <el-input v-model="editForm.confirmPassword" type="password" placeholder="请再次输入新密码"></el-input>
           </el-form-item>
         </el-form>
@@ -199,18 +199,24 @@ export default {
       this.loading = false;
     },
     async changePassword() {
-      const { data: res } = await this.$http.post("user/update_password", {
-        password: this.editForm.password,
-        userId: window.sessionStorage.getItem("userId"),
+      this.$refs.editFormRef.validate(async (valid) => {
+        if (valid) {
+          const { data: res } = await this.$http.post("user/update_password", {
+            password: this.editForm.password,
+            userId: window.sessionStorage.getItem("userId"),
+          });
+          if (res.status !== 200) {
+            return this.$message.error(res.msg);
+          }
+          this.$message.success(res.msg);
+          this.editDialogVisible = false;
+          this.$refs.editFormRef.resetFields();
+          window.sessionStorage.clear();
+          this.$router.push("/login");
+        } else {
+          this.$message.error("请正确填写表单");
+        }
       });
-      if (res.status !== 200) {
-        return this.$message.error(res.msg);
-      }
-      this.$message.success(res.msg);
-      this.editDialogVisible = false;
-      this.$refs.editFormRef.resetFields();
-      window.sessionStorage.clear();
-      this.$router.push("/login");
     },
     async updateUserInfo() {
       const { data: res } = await this.$http.post("user/edit", {
@@ -234,7 +240,6 @@ export default {
 };
 </script>
 
-
 <style lang="less" scoped>
 .information_container {
   position: relative;
@@ -252,7 +257,6 @@ export default {
 }
 .information_header {
   height: 100px;
-  // background-color: pink;
   text-align: center;
   p:nth-child(1) {
     line-height: 140px;
@@ -268,17 +272,13 @@ export default {
   display: flex;
   flex-direction: column;
   height: 400px;
-  // background-color: pink;
   .information_banner_left {
     flex: 0.5;
-    // background-color: brown;
     text-align: center;
   }
   .information_banner_right {
     flex: 0.5;
-    // background-color: skyblue;
     text-align: center;
-
     line-height: 400px;
   }
 }
